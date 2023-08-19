@@ -14,7 +14,7 @@ RUN pip install Flask flask-cors schedule
 EXPOSE 8007
 
 # Define environment variable to tell Flask where to find the app
-ENV FLASK_APP=index.py
+ENV FLASK_APP=proxy.py
 
 # Run Flask app when the container launches
 CMD ["flask", "run", "--host=0.0.0.0", "--port=8007"]
