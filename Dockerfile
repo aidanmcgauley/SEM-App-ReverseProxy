@@ -8,8 +8,8 @@ COPY config.json /app
 # Change the working directory to /app/src
 WORKDIR /app/src
 
-# Install Flask and flask-cors
-RUN pip install Flask flask-cors schedule
+# Run installs
+RUN pip install Flask flask-cors schedule requests urllib3
 
 # Make port available to the world outside this container
 EXPOSE 8007
