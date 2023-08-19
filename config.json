@@ -1,0 +1,52 @@
+{
+    "services": [
+        {
+            "name": "maxmin",
+            "urls": [
+                "http://INVALID-TESTING-URL.40058902.qpc.hal.davecutting.uk/",
+                "http://sem-maxmin1.40058902.qpc.hal.davecutting.uk/"
+            ],
+            "method": "GET"
+        },
+        {
+            "name": "sorted",
+            "urls": [
+                "http://INVALID-TESTING-URL.qpc.hal.davecutting.uk/",
+                "http://sem-sort1.40058902.qpc.hal.davecutting.uk/"
+            ],
+            "method": "GET"
+        },
+        {
+            "name": "totalHours",
+            "urls": [
+                "http://INVALID-TESTING-URL.40058902.qpc.hal.davecutting.uk/",
+                "http://sem-totalhours1.40058902.qpc.hal.davecutting.uk/"
+            ],
+            "method": "GET"
+        },
+        {
+            "name": "engagementScore",
+            "urls": [
+                "http://INVALID-TESTING-URL.40058902.qpc.hal.davecutting.uk/",
+                "http://sem-engagementscore1.40058902.qpc.hal.davecutting.uk/"
+            ],
+            "method": "GET"
+        },
+        {
+            "name": "riskFailure",
+            "urls": [
+                "http://INVALID-TESTING-URL.40058902.qpc.hal.davecutting.uk/",
+                "http://sem-riskoffailure1.40058902.qpc.hal.davecutting.uk/"
+            ],
+            "method": "GET"
+        },
+        {
+            "name": "sortedByPercentage",
+            "urls": [
+                "http://INVALID-TESTING-URL.40058902.qpc.hal.davecutting.uk/",
+                "http://sem-sortbypercentage1.40058902.qpc.hal.davecutting.uk/"
+            ],
+            "method": "GET"
+        }
+    ]
+}
