@@ -1,11 +1,12 @@
 # Use an official Python runtime as a base image
 FROM python:3.8-slim-buster
 
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the local src directory contents into the container at /app
-COPY src/ /app
+# Copy the local src directory contents into the container at /app/src
+COPY src/ /app/src
+# Copy the local config.json into the container at /app
+COPY config.json /app
+# Change the working directory to /app/src
+WORKDIR /app/src
 
 # Install Flask and flask-cors
 RUN pip install Flask flask-cors schedule
