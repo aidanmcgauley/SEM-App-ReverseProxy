@@ -117,7 +117,7 @@ def reload_config_endpoint():
     return "Configuration reloaded successfully", 200
 
 # Schedule the reload configuration job to run every 10 mins on auto
-schedule.every(0.1).minutes.do(reload_config)
+schedule.every(10).minutes.do(reload_config)
 
 if __name__ == '__main__':
     import threading
