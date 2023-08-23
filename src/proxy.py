@@ -68,7 +68,6 @@ def proxy_request(service_name, service_urls, subpath):
     return f"All {service_name} services are down. Please try again later.", 500
 
 
-
 # Function to define routes dynamically based on configuration
 def define_routes():
     global defined_services
