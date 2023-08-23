@@ -18,8 +18,14 @@ def load_config():
 
 config = load_config()
 
+# Maintain a set of defined services to avoid redefining the same route
+defined_services = set()
+
 # Maintain a counter for each service to implement round-robin load balancing
-service_counters = {service['name']: 0 for service in config['services']}
+service_counters = {}
+for service in config['services']:
+    service_name = service['name']
+    service_counters[service_name] = 0
 
 # Function to send requests to the backend services.
 # Include a round robin load balancer so that not all requests are sent to 
@@ -65,10 +71,13 @@ def proxy_request(service_name, service_urls, subpath):
 
 # Function to define routes dynamically based on configuration
 def define_routes():
+    global defined_services
     for service in config['services']:
-        endpoint = f'/{service["name"]}'
         service_name = service['name']
+        if service_name in defined_services:
+            continue  # Skip if this service route is already defined
         service_urls = service['urls']
+        endpoint = f'/{service_name}'
 
         @app.route(endpoint, defaults={'subpath': ''}, endpoint=f'{service_name}_route')
         @app.route(f'{endpoint}/<path:subpath>', endpoint=f'{service_name}_route_subpath')
@@ -76,6 +85,7 @@ def define_routes():
             #print(f"Received request for service: {service_name}, subpath: {subpath}") # Debug print
             return proxy_request(service_name, service_urls, subpath)
 
+        defined_services.add(service_name)
 
 # Define routes based on initial configuration
 define_routes()
@@ -83,7 +93,7 @@ define_routes()
 #for rule in app.url_map.iter_rules():   # More debug printing
 #    print(rule)
 
-# Function to reload configuration without redefining routes
+# Function to reload configuration without redefining routes (which was causing errors)
 def reload_config():
     global config
     global service_counters
@@ -99,14 +109,16 @@ def reload_config():
     # Update the service_counters based on the new configuration
     service_counters = {service['name']: 0 for service in config['services']}
 
+    define_routes()
+
 # Endpoint to reload configuration
 @app.route('/reload-config', methods=['POST'])
 def reload_config_endpoint():
     reload_config()
     return "Configuration reloaded successfully", 200
 
-# Schedule the reload configuration job to run every 5 minutes
-schedule.every(10).minutes.do(reload_config)
+# Schedule the reload configuration job to run every 10 mins on auto
+schedule.every(0.1).minutes.do(reload_config)
 
 if __name__ == '__main__':
     import threading
